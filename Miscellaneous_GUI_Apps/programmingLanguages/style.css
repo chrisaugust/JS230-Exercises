@@ -1,0 +1,30 @@
+a {
+  text-decoration: none;
+}
+
+body {
+  background-image: linear-gradient(to right, red, orange, yellow, green, blue, violet);
+}
+
+.button {
+  padding: 5px;
+  color: red;
+  border; 1px solid black;
+  border-radius: 5px;
+}
+
+.hidden {
+  display: none;
+}
+
+.less {
+  background-image: linear-gradient(to left, red, orange, yellow, green, blue, violet);
+}
+
+.more {
+  background-image: linear-gradient(to right, red, orange, yellow, green, blue, violet);
+}
+
+.visible {
+  display: inline-block;
+}
