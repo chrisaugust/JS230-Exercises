@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.js"></script>
+    <title>Todos</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <h1>Todos</h1>
+    <div id="todo-container"></div>
+    <div class="overlay"></div>
+    <div id="confirm_modal" style="display: none;"></div>
+    <div id="context_menu" style="display: none;"></div>
+    
+    <script id="todos_template" type="text/x-handlebars-template">
+      <ul id="todos">
+        {{#each todos}}
+          <li data-id="{{id}}">{{task}}</li>
+        {{/each}}
+      </ul>
+    </script>
+
+    <script id="confirm_template" type="text/x-handlebars-template">
+      <div class="confirm_wrapper" data-id="{{id}}">
+        <p>Are you sure you want to delete this todo?</p>
+        <div class="actions">
+          <a href="#" class="confirm_yes">Yes</a>
+          <a href="#" class="confirm_no">No</a>
+        </div>
+      </div>
+    </script>
+
+    <script id="context_menu_template" type="text/x-handlebars-template">
+      <ul>
+        <li><a href="#">Edit Todo</a></li>
+        <li><a href="#">Show Details</a></li>
+        <li data-id="{{id}}" class="remove"><a href="#">Delete</a></li>
+      </ul>
+    </script>
+
+    <script src="app.js"></script>
+  </body>
+</html>
