@@ -56,6 +56,13 @@
       {{#each cars}} {{> car_template}} {{/each}}
     </script>
 
+    <script id="model_options_template" type="text/x-handlebars-template">
+      <option value="">All</option>
+    {{#each models}}
+      <option value="{{.}}">{{.}}</option>
+    {{/each}}
+  </script>
+
     <script id="car_template" type="text/x-handlebars-template">
       <div class="car">
         <figure>

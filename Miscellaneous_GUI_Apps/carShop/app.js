@@ -21,17 +21,23 @@ const App = {
     this.carsTemplate = document.getElementById('cars_template').innerHTML;
     this.carTemplate = document.getElementById('car_template').innerHTML;
     this.filterTemplate = document.getElementById('filter_template').innerHTML;
+    this.modelOptionsTemplate = document.getElementById('model_options_template').innerHTML;
     this.carsGallery = document.getElementById('cars');
     this.filters = document.getElementById('filters');
+
+    console.log('makeSelect: ', this.makeSelect);
   },
 
   registerPartials() {
     Handlebars.registerPartial('car_template', this.carTemplate);
+    Handlebars.registerPartial('model_options_template', this.modelOptionsTemplate);
+
   },
 
   compileTemplates() {
     this.compiledCarsTemplate = Handlebars.compile(this.carsTemplate);
     this.compiledFilterTemplate = Handlebars.compile(this.filterTemplate);
+    this.compiledModelOptionsTemplate = Handlebars.compile(this.modelOptionsTemplate);
   },
  
   renderCars() {
@@ -62,6 +68,8 @@ const App = {
     this.filters.innerHTML = compiledFiltersHTML;
     const filterButton = document.getElementById('filter_btn');
     filterButton.addEventListener('click', this.renderCars.bind(this));
+    this.makeSelect = document.getElementById('make_select');
+    this.makeSelect.addEventListener('change', this.handleMakeSelect.bind(this));
   },
 
   applyFilters() {
@@ -83,7 +91,6 @@ const App = {
     if (priceValue) filters.price = Number(priceValue);
     if (yearValue) filters.year = Number(yearValue);
 
-    console.log('filters: ', filters);
     return this.filterCars(filters);
   },
 
@@ -100,9 +107,29 @@ const App = {
       }
     });
 
-    console.log(filteredCars);
     return filteredCars;
   },
+  
+  renderModelsForMake(models) {
+    let compiledModelsForMakeHTML = this.compiledModelOptionsTemplate({ models: models });
+    console.log(compiledModelsForMakeHTML);
+    let modelFilter = document.getElementById('model_select');
+    modelFilter.innerHTML = compiledModelsForMakeHTML;
+  },
+
+  handleMakeSelect(e) {
+    let make = e.target.value;
+    let modelsForMake = [];
+    if (make) {
+      modelsForMake = [...new Set(cars.filter(car => car.make === make).map(car => car.model))];
+    } else {
+      modelsForMake = [...new Set(cars.map(car => car.make))];
+    }
+    this.renderModelsForMake(modelsForMake);
+  }
+
 };
 
-App.init();
+document.addEventListener('DOMContentLoaded', () => {
+  App.init();
+});
